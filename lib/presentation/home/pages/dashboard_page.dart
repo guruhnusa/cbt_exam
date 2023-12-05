@@ -2,6 +2,7 @@ import 'package:cbt_exam/core/extensions/build_context_ext.dart';
 import 'package:cbt_exam/data/datasources/auth_local_datarsource.dart';
 import 'package:cbt_exam/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:cbt_exam/presentation/auth/pages/login_page.dart';
+import 'package:cbt_exam/presentation/profile/pages/profile_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,7 +27,8 @@ class _DashboardPageState extends State<DashboardPage> {
     const Center(
       child: Text('Notif'),
     ),
-    const LogoutWidget(),
+    //Profile
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -98,7 +100,7 @@ class _LogoutWidgetState extends State<LogoutWidget> {
           success: (state) {
             AuthLocalDataSource().removeAuthData();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("$state"),
+              content: Text(state),
               backgroundColor: Colors.green,
             ));
             context.pushReplacement(const LoginPage());
@@ -106,7 +108,7 @@ class _LogoutWidgetState extends State<LogoutWidget> {
           error: (state) {
             return ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("$state"),
+                content: Text(state),
                 backgroundColor: Colors.red,
               ),
             );

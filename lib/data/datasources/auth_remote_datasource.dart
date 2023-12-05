@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 
 class AuthRemoteDataSource {
   final String url = Variables.baseUrl;
+
   Future<Either<String, AuthResponseModel>> register(
       RegisterRequestModel model) async {
     final response = await http.post(
@@ -48,10 +49,8 @@ class AuthRemoteDataSource {
       },
     );
     if (response.statusCode == 200) {
-      print(response.body);
       return Right(AuthResponseModel.fromJson(response.body));
     } else {
-      print(response.body);
       return Left(response.body);
     }
   }
