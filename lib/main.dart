@@ -8,9 +8,14 @@ import 'package:cbt_exam/presentation/auth/pages/login_page.dart';
 import 'package:cbt_exam/presentation/home/pages/dashboard_page.dart';
 import 'package:cbt_exam/presentation/onboarding/pages/onboarding_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const MyApp());
 }
 
