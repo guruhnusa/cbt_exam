@@ -18,6 +18,7 @@ class AuthLocalDataSource {
   Future<AuthResponseModel> getAuthData() async {
     final pref = await SharedPreferences.getInstance();
     final authData = pref.getString("auth_data");
+
     return AuthResponseModel.fromJson(authData!);
   }
 }

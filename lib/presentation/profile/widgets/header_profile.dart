@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../data/datasources/auth_local_datarsource.dart';
-import '../../../data/models/response/auth_response_model.dart';
 
 class HeaderProfile extends StatelessWidget {
   const HeaderProfile({
@@ -49,23 +48,15 @@ class HeaderProfile extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            FutureBuilder<AuthResponseModel>(
-                                future: AuthLocalDataSource().getAuthData(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Text(
-                                      snapshot.data!.user.email,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    );
-                                  } else {
-                                    return const SizedBox();
-                                  }
-                                }),
+                            Text(
+                              snapshot.data!.user.email,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            )
                           ],
                         ),
                       );
@@ -82,6 +73,7 @@ class HeaderProfile extends StatelessWidget {
             state.maybeWhen(
                 orElse: () {},
                 success: (state) {
+                  AuthLocalDataSource().removeAuthData();
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text(state),
                     backgroundColor: Colors.green,
@@ -98,7 +90,7 @@ class HeaderProfile extends StatelessWidget {
           builder: (context, state) {
             return state.maybeWhen(orElse: () {
               return IconButton(
-                onPressed: () {
+                onPressed: () async {
                   context.read<LogoutBloc>().add(const LogoutEvent.logout());
                 },
                 icon: Container(

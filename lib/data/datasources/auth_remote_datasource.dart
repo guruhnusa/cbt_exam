@@ -32,6 +32,7 @@ class AuthRemoteDataSource {
         "Authorization": "Bearer ${authData.accessToken}"
       },
     );
+
     if (response.statusCode == 200) {
       return const Right("Success Logout");
     } else {

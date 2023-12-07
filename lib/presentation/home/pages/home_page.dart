@@ -1,3 +1,6 @@
+import 'package:cbt_exam/core/extensions/build_context_ext.dart';
+import 'package:cbt_exam/presentation/home/pages/about_us_pages.dart';
+import 'package:cbt_exam/presentation/materi/pages/materi_pages.dart';
 import 'package:flutter/material.dart';
 import '../../../core/assets/assets.gen.dart';
 import '../widgets/header_home.dart';
@@ -38,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                 imagePath: Assets.images.menu.aboutUs.path,
                 label: 'About Us',
                 onPressed: () {
-                  // context.push(const AboutUsPage());
+                  context.push(const AboutUsPage());
                 },
               ),
               MenuHome(
@@ -52,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                 imagePath: Assets.images.menu.materi.path,
                 label: 'Materi',
                 onPressed: () {
-                  // context.push(const MateriPage());
+                  context.push(const MateriPages());
                 },
               ),
               MenuHome(
