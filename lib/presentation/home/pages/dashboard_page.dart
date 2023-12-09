@@ -2,7 +2,7 @@ import 'package:cbt_exam/core/extensions/build_context_ext.dart';
 import 'package:cbt_exam/data/datasources/auth_local_datarsource.dart';
 import 'package:cbt_exam/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:cbt_exam/presentation/auth/pages/login_page.dart';
-import 'package:cbt_exam/presentation/materi/pages/materi_pages.dart';
+import 'package:cbt_exam/presentation/materi/pages/materi_page.dart';
 import 'package:cbt_exam/presentation/profile/pages/profile_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const MateriPages(),
+    const MateriPage(),
     const Center(
       child: Text('Notif'),
     ),

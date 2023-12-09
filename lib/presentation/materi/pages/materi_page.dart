@@ -1,0 +1,60 @@
+import 'package:cbt_exam/presentation/materi/bloc/materi/materi_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../core/components/custom_scaffold.dart';
+import '../widgets/materi_card.dart';
+
+class MateriPage extends StatefulWidget {
+  final bool showBackButton;
+  const MateriPage({super.key, this.showBackButton = false});
+
+  @override
+  State<MateriPage> createState() => _MateriPageState();
+}
+
+class _MateriPageState extends State<MateriPage> {
+  @override
+  void initState() {
+    context.read<MateriBloc>().add(const MateriEvent.getAllMateri());
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScaffold(
+      showBackButton: widget.showBackButton,
+      appBarTitle: const Text('Materi TPA'),
+      body: BlocBuilder<MateriBloc, MateriState>(
+        builder: (context, state) {
+          return state.maybeWhen(
+            orElse: () {
+              return const Center(
+                child: Text("Error"),
+              );
+            },
+            loading: () {
+              return const Center(child: CircularProgressIndicator());
+            },
+            error: (message) {
+              return Center(child: Text(message));
+            },
+            success: (datas) {
+              return ListView.separated(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 50.0, horizontal: 24.0),
+                shrinkWrap: true,
+                itemCount: datas.data.length,
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 16.0),
+                itemBuilder: (context, index) => MateriCard(
+                  data: datas.data[index],
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+}

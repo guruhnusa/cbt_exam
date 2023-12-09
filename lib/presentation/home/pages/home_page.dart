@@ -1,6 +1,7 @@
 import 'package:cbt_exam/core/extensions/build_context_ext.dart';
-import 'package:cbt_exam/presentation/home/pages/about_us_pages.dart';
-import 'package:cbt_exam/presentation/materi/pages/materi_pages.dart';
+import 'package:cbt_exam/presentation/home/pages/about_us_page.dart';
+import 'package:cbt_exam/presentation/home/pages/tips_and_trick_page.dart';
+import 'package:cbt_exam/presentation/materi/pages/materi_page.dart';
 import 'package:flutter/material.dart';
 import '../../../core/assets/assets.gen.dart';
 import '../widgets/header_home.dart';
@@ -48,14 +49,14 @@ class _HomePageState extends State<HomePage> {
                 imagePath: Assets.images.menu.tips.path,
                 label: 'Tips & Tricks ',
                 onPressed: () {
-                  // context.push(const TipsAndTricksPage());
+                  context.push(const TipsAndTricksPage());
                 },
               ),
               MenuHome(
                 imagePath: Assets.images.menu.materi.path,
                 label: 'Materi',
                 onPressed: () {
-                  context.push(const MateriPages());
+                  context.push(const MateriPage());
                 },
               ),
               MenuHome(

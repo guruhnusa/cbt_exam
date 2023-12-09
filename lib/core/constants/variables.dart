@@ -1,3 +1,3 @@
 class Variables {
-  static const String baseUrl = "https://cbtnusa.azurewebsites.net";
+  static const String baseUrl = "https://cbt.guruhnusa.my.id";
 }

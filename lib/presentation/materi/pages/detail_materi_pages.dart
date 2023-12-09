@@ -1,96 +1,102 @@
-import 'package:cbt_exam/core/components/custom_scaffold.dart';
-import 'package:cbt_exam/core/constants/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cbt_exam/core/extensions/build_context_ext.dart';
+import 'package:cbt_exam/data/models/response/materi_response_model.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/button_materi.dart';
+import '../../../core/components/custom_scaffold.dart';
+import '../../../core/constants/colors.dart';
+import '../widgets/materi_button.dart';
 
-class DetailMateriPage extends StatefulWidget {
-  const DetailMateriPage({super.key});
+class MateriDetailPage extends StatelessWidget {
+  final Materi data;
+  const MateriDetailPage({super.key, required this.data});
 
-  @override
-  State<DetailMateriPage> createState() => _DetailMateriPageState();
-}
-
-class _DetailMateriPageState extends State<DetailMateriPage> {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-        appBarTitle: const Text("Detail Materi"),
-        body: ListView(
-          children: [
-            Container(
-              height: context.deviceHeight / 1.8,
+      appBarTitle: const Text('Materi TPA'),
+      body: ListView(
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(30.0),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: data.image,
+              placeholder: (context, url) =>
+                  const Center(child: CircularProgressIndicator()),
               width: context.deviceWidth,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
-                image: DecorationImage(
-                    image: NetworkImage("https://i.pravatar.cc/200"),
-                    fit: BoxFit.cover),
-              ),
+              height: 470.0,
+              fit: BoxFit.cover,
             ),
-            const Padding(
-              padding: EdgeInsets.all(12),
-              child: Text(
-                "Lorem ipsum dolor sit amet, consecte  ",
-                style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam accumsan sem ut ligula tempus, a vehicula dui ullamcorper. Nunc eget lacinia neque. Vivamus eget augue nec urna scelerisque vehicula. Quisque feugiat dui eu ex tincidunt,",
-                style: TextStyle(
-                  fontSize: 14,
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 24.0, vertical: 14.0),
+            child: Column(
+              children: [
+                Text(
+                  data.title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-                textAlign: TextAlign.center,
-              ),
-            )
-          ],
-        ),
-        floatingActionButton: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              height: 100,
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.white, AppColors.primary.withOpacity(0.4)],
-              )),
+                const SizedBox(height: 14.0),
+                Text(
+                  data.content,
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ButtonMateri(button: () {}, icon: Icons.star_border_outlined),
-                  SizedBox(
-                    height: 48,
-                    width: 167,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Read More",
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primary),
-                      ),
+          ),
+          const SizedBox(height: 100.0),
+        ],
+      ),
+      floatingActionButton: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            height: 100,
+            width: context.deviceWidth,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                const Color.fromARGB(207, 255, 255, 255),
+                AppColors.primary.withOpacity(0.4)
+              ],
+            )),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ButtonMateri(button: () {}, icon: Icons.star_border_outlined),
+                SizedBox(
+                  height: 48,
+                  width: 167,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      "Read More",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.primary),
                     ),
                   ),
-                  ButtonMateri(button: () {}, icon: Icons.file_upload_outlined),
-                ],
-              ),
+                ),
+                ButtonMateri(button: () {}, icon: Icons.file_upload_outlined),
+              ],
             ),
-          ],
-        ));
+          ),
+        ],
+      ),
+    );
   }
 }
