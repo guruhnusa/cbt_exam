@@ -63,7 +63,7 @@ class _QuizFinishPageState extends State<QuizFinishPage> {
               Button.filled(
                 onPressed: () {
                   context.push(
-                    const QuizResultPage(),
+                     QuizResultPage(category: widget.data.category,),
                   );
                 },
                 label: 'Lihat Hasil',

@@ -29,11 +29,10 @@ class _QuizListPageState extends State<QuizListPage> {
     final List<QuizModel> datas = [
       QuizModel(
         image: Assets.images.quizCategory.path,
-        name: 'Tes Angka',
+        name: 'Tes Numeric',
         type: 'Multiple Choice',
         description:
             'Tes angka adalah suatu jenis tes psikometri yang dirancang untuk mengukur kemampuan individu dalam memahami, menganalisis, dan menyelesaikan masalah yang melibatkan angka dan matematika.',
-        duration: 30,
         category: 'Numeric',
       ),
       QuizModel(
@@ -42,7 +41,6 @@ class _QuizListPageState extends State<QuizListPage> {
         type: 'Multiple Choice',
         description:
             'Tes logika adalah metode evaluasi yang digunakan untuk mengukur kemampuan seseorang dalam berpikir secara logis, analitis, dan rasional',
-        duration: 30,
         category: 'Logika',
       ),
       QuizModel(
@@ -51,7 +49,6 @@ class _QuizListPageState extends State<QuizListPage> {
         type: 'Multiple Choice',
         description:
             'Tes verbal adalah suatu metode evaluasi yang digunakan untuk mengukur kemampuan seseorang dalam menggunakan dan memahami bahasa lisan atau tertulis.',
-        duration: 30,
         category: 'Verbal',
       ),
     ];

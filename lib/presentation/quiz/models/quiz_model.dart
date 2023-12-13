@@ -5,7 +5,6 @@ class QuizModel {
   final String name;
   final String type;
   final String description;
-  final int duration;
   final String category;
 
   QuizModel({
@@ -13,7 +12,6 @@ class QuizModel {
     required this.name,
     required this.type,
     required this.description,
-    required this.duration,
     required this.category,
   });
 

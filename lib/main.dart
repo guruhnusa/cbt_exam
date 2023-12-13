@@ -12,8 +12,11 @@ import 'package:cbt_exam/presentation/home/bloc/content/content_bloc.dart';
 import 'package:cbt_exam/presentation/home/pages/dashboard_page.dart';
 import 'package:cbt_exam/presentation/materi/bloc/materi/materi_bloc.dart';
 import 'package:cbt_exam/presentation/onboarding/pages/onboarding_pages.dart';
+import 'package:cbt_exam/presentation/quiz/bloc/asnwers/answers_bloc.dart';
+import 'package:cbt_exam/presentation/quiz/bloc/calculate_score/calculate_score_bloc.dart';
 import 'package:cbt_exam/presentation/quiz/bloc/create_exam/create_exam_bloc.dart';
 import 'package:cbt_exam/presentation/quiz/bloc/exam_by_category/exam_by_category_bloc.dart';
+import 'package:cbt_exam/presentation/quiz/bloc/question_list/question_list_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,7 +65,18 @@ class MyApp extends StatelessWidget {
           create: (context) => CreateExamBloc(
             ExamRemoteDataSource(),
           ),
-        )
+        ),
+        BlocProvider(
+          create: (context) => QuestionListBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CalculateScoreBloc(ExamRemoteDataSource()),
+        ),
+        BlocProvider(
+          create: (context) => AnswersBloc(
+            ExamRemoteDataSource(),
+          ),
+        ),
       ],
       child: MaterialApp(
         title: 'CBT APPS',

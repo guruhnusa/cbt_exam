@@ -1,5 +1,7 @@
-import 'package:cbt_exam/core/extensions/build_context_ext.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
+import 'package:cbt_exam/core/extensions/build_context_ext.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/components/buttons.dart';
@@ -7,10 +9,14 @@ import '../../../core/components/custom_scaffold.dart';
 import '../../../core/constants/colors.dart';
 import '../models/quiz_model.dart';
 import '../widgets/quiz_available_card.dart';
-import '../widgets/quiz_result_page.dart';
+import '../widgets/quiz_result_last.dart';
 
 class QuizResultPage extends StatelessWidget {
-  const QuizResultPage({super.key});
+  final String category;
+  const QuizResultPage({
+    Key? key,
+    required this.category,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +27,10 @@ class QuizResultPage extends StatelessWidget {
     final List<QuizModel> datas = [
       QuizModel(
         image: Assets.images.quizCategory.path,
-        name: 'Tes Angka',
+        name: 'Tes Numeric',
         type: 'Multiple Choice',
         description:
             'Tes angka adalah suatu jenis tes psikometri yang dirancang untuk mengukur kemampuan individu dalam memahami, menganalisis, dan menyelesaikan masalah yang melibatkan angka dan matematika.',
-        duration: 30,
         category: 'Numeric',
       ),
       QuizModel(
@@ -34,7 +39,6 @@ class QuizResultPage extends StatelessWidget {
         type: 'Multiple Choice',
         description:
             'Tes logika adalah metode evaluasi yang digunakan untuk mengukur kemampuan seseorang dalam berpikir secara logis, analitis, dan rasional',
-        duration: 30,
         category: 'Logika',
       ),
       QuizModel(
@@ -43,7 +47,6 @@ class QuizResultPage extends StatelessWidget {
         type: 'Multiple Choice',
         description:
             'Tes verbal adalah suatu metode evaluasi yang digunakan untuk mengukur kemampuan seseorang dalam menggunakan dan memahami bahasa lisan atau tertulis.',
-        duration: 30,
         category: 'Verbal',
       ),
     ];
@@ -53,9 +56,9 @@ class QuizResultPage extends StatelessWidget {
       body: ListView(
         children: [
           const SizedBox(height: 30.0),
-          const Padding(
+          Padding(
             padding: paddingHorizontal,
-            child: QuizResultLast(),
+            child: QuizResultLast(category: category),
           ),
           const SizedBox(height: 40.0),
           const Padding(

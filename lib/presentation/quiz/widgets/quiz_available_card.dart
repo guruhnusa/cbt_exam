@@ -87,10 +87,10 @@ class QuizAvailableCard extends StatelessWidget {
                       child: Assets.icons.timer.image(height: 14.0),
                     ),
                     const SizedBox(width: 8.0),
-                    Text(
-                      '${data.duration} min',
-                      style: const TextStyle(fontSize: 12),
-                    ),
+                    // Text(
+                    //   '${data.duration} min',
+                    //   style: const TextStyle(fontSize: 12),
+                    // ),
                   ],
                 ),
               ],

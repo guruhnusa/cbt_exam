@@ -1,23 +1,33 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
+
+import 'package:cbt_exam/presentation/quiz/bloc/calculate_score/calculate_score_bloc.dart';
 
 import '../../../core/constants/colors.dart';
 import 'result_value.dart';
 
-class QuizResultLast extends StatelessWidget {
-  const QuizResultLast({super.key});
+class QuizResultLast extends StatefulWidget {
+  final String category;
+  const QuizResultLast({
+    Key? key,
+    required this.category,
+  }) : super(key: key);
 
   @override
+  State<QuizResultLast> createState() => _QuizResultLastState();
+}
+
+class _QuizResultLastState extends State<QuizResultLast> {
+  @override
   Widget build(BuildContext context) {
-    const correct = 23;
-    const wrong = 12;
-    const totalQuestion = correct + wrong;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Hasil Tes Terakhir',
-          style: TextStyle(
+        Text(
+          'Hasil Tes ${widget.category}',
+          style: const TextStyle(
             fontSize: 21,
             fontWeight: FontWeight.w500,
           ),
@@ -39,48 +49,71 @@ class QuizResultLast extends StatelessWidget {
               )
             ],
           ),
-          child: Row(
-            children: [
-              const Flexible(
-                flex: 1,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Semua Tes',
-                      style: TextStyle(
-                        fontSize: 21,
-                        fontWeight: FontWeight.w500,
+          child: BlocBuilder<CalculateScoreBloc, CalculateScoreState>(
+            builder: (context, state) {
+              return state.maybeWhen(
+                orElse: () {
+                  return const SizedBox();
+                },
+                loading: () {
+                  return const Center(child: CircularProgressIndicator());
+                },
+                success: (data) {
+                  return Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Semua Tes',
+                              style: TextStyle(
+                                fontSize: 21,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 18.0),
+                            ResultValue.correct(data.correctAnswer),
+                            const SizedBox(height: 18.0),
+                            ResultValue.wrong(data.incorrectAnswer),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 18.0),
-                    ResultValue.correct(correct),
-                    SizedBox(height: 18.0),
-                    ResultValue.wrong(wrong),
-                  ],
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                child: Column(
-                  children: [
-                    CircularStepProgressIndicator(
-                      totalSteps: totalQuestion,
-                      currentStep: correct,
-                      stepSize: 10,
-                      selectedColor: AppColors.green,
-                      unselectedColor: AppColors.primary,
-                      padding: 0,
-                      width: 140,
-                      height: 140,
-                      selectedStepSize: 24,
-                      unselectedStepSize: 24,
-                      roundedCap: (_, __) => true,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                      Flexible(
+                        flex: 1,
+                        child: Column(
+                          children: [
+                            CircularStepProgressIndicator(
+                                totalSteps:
+                                    data.correctAnswer + data.incorrectAnswer,
+                                currentStep: data.correctAnswer,
+                                stepSize: 10,
+                                selectedColor: AppColors.green,
+                                unselectedColor: AppColors.primary,
+                                padding: 0,
+                                width: 140,
+                                height: 140,
+                                selectedStepSize: 24,
+                                unselectedStepSize: 24,
+                                roundedCap: (_, __) => true,
+                                child: Center(
+                                  child: Text(
+                                    '${data.score}',
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
           ),
         ),
       ],
